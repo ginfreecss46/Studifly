@@ -1,40 +1,66 @@
-# University - Votre Compagnon Académique
+<div align="center">
 
-Bienvenue sur **University**, l'application mobile tout-en-un conçue pour simplifier et enrichir la vie des étudiants. Développée au service de la communauté étudiante, notre objectif est de centraliser tous les outils dont vous avez besoin pour réussir.
+<img src="https://user-images.githubusercontent.com/0000000/placeholder-logo.png" width="120" alt="Studifly logo"/>
 
-## ✨ Fonctionnalités Principales
+# 🕊️ Studifly  
+### _Le compagnon d’études intelligent et collaboratif_
 
-University a été pensée pour vous aider à rester organisé et connecté :
+![Made with Love](https://img.shields.io/badge/Made%20with%20💙-for%20students-blue)
+![License MIT](https://img.shields.io/badge/License-MIT-green)
+![Status](https://img.shields.io/badge/status-en%20développement-orange)
+![Platform](https://img.shields.io/badge/platform-mobile-lightgrey)
+![Tech](https://img.shields.io/badge/built%20with-React%20Native%20%2B%20Supabase-blue)
 
--   **🗓️ Agenda & Emploi du Temps Intégré :** Visualisez en un clin d'œil vos cours, les dates limites de vos devoirs et vos événements personnels. Ne manquez plus jamais une échéance importante !
+</div>
 
--   **📚 Gestion des Devoirs :** Ajoutez facilement vos devoirs, suivez leur progression et recevez des rappels automatiques pour ne jamais être pris de court.
+---
 
--   **🤝 Forum d'Entraide :** Un espace de discussion pour poser des questions, partager des connaissances et collaborer avec d'autres étudiants de votre promotion, filière ou option.
+## ✨ Présentation
 
--   **📂 Bibliothèque de Documents Partagée :** Téléchargez et partagez des ressources précieuses : résumés de cours, notes, exercices corrigés et bien plus encore. La connaissance est faite pour être partagée !
+**Studifly** est une application mobile qui aide les étudiants à s’organiser, collaborer et réussir.  
+Tout ce dont vous avez besoin pour vos études — **agenda, tâches, documents, forums, et groupes** — réuni dans une interface moderne et intuitive.
 
--   **💬 Groupes de Discussion Automatiques :** Dès votre inscription, vous êtes automatiquement ajouté à des groupes de discussion pertinents (par niveau, pôle, filière et option) pour faciliter la communication et l'intégration.
+<div align="center">
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDI1cGdsYzFpaHV1NXNqM2o0OXJ3aHhqM2o5aWZzM3h5YWFlZjBpdiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/QWkuGmK9VxBqgZs6Pj/giphy.gif" width="600" alt="Studifly demo animation">
+</div>
 
--   **👤 Profil Personnalisable :** Mettez à jour votre profil académique pour que les autres puissent vous connaître et pour accéder aux groupes et contenus qui vous correspondent.
+---
 
-## 🎯 Pour Qui ?
+## 🚀 Fonctionnalités principales
 
-Cette application est destinée à tous les étudiants qui cherchent à :
--   Mieux s'organiser au quotidien.
--   Collaborer plus facilement avec leurs camarades.
--   Centraliser leurs informations académiques en un seul endroit.
--   Participer à une communauté d'entraide active.
+🎓 **Organisation intelligente**  
+> Planifiez vos cours, vos examens et vos tâches sans effort grâce à un agenda fluide et interactif.
 
-## 🚀 Contribuer
+💬 **Communauté étudiante**  
+> Rejoignez des groupes par filière, échangez des conseils, collaborez sur vos projets.
 
-Ce projet est fait par et pour les étudiants. Si vous avez des idées d'amélioration ou si vous souhaitez contribuer au code, n'hésitez pas à ouvrir une "issue" ou une "pull request" sur notre dépôt Git.
+📚 **Partage de ressources**  
+> Téléversez vos cours, notes, fiches de révision, et accédez à une bibliothèque commune.
 
-## 🐞 Signaler un Problème
+🔔 **Notifications & rappels**  
+> Recevez des alertes pour vos devoirs et événements à venir.
 
-Vous avez trouvé un bug ? Une fonctionnalité ne se comporte pas comme prévu ?
+🧠 **Mode focus & productivité**  
+> Concentrez-vous sur vos priorités grâce à des outils de planification intégrés.
 
--   **GitHub Issues :** Ouvrez une "issue" sur le dépôt Git en décrivant le problème le plus précisément possible.
--   **WhatsApp :** Vous pouvez également nous contacter directement sur WhatsApp pour un retour plus rapide : [Contacter le support sur WhatsApp](https://wa.me/+242067274660)
+---
 
-Votre aide est précieuse pour améliorer l'application !
+## 🛠️ Stack technique
+
+| Technologie | Utilisation |
+|--------------|-------------|
+| **React Native (Expo)** | Frontend mobile multiplateforme |
+| **TypeScript** | Typage et robustesse du code |
+| **Supabase** | Base de données & authentification |
+| **React Context / Hooks** | Gestion des états et logique |
+| **Node.js** | Environnement de développement |
+| **Tailwind / Styled Components** | Style moderne et responsive |
+
+<div align="center">
+  <img src="https://skillicons.dev/icons?i=react,typescript,nodejs,supabase,tailwind,git" />
+</div>
+
+---
+
+## 🧩 Structure du projet
+
