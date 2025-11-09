@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://user-images.githubusercontent.com/0000000/placeholder-logo.png" width="120" alt="Studifly logo"/>
+<img src="placeholder-logo.png" width="120" alt="Studifly logo"/>
 
 # 🕊️ Studifly  
 ### _Le compagnon d’études intelligent et collaboratif_
