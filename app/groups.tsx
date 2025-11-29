@@ -29,6 +29,65 @@ const getGroupIcon = (groupType: string) => {
   }
 };
 
+const formatGroupName = (name: string, groupType: string): string => {
+  if (groupType === 'level') {
+    if (name === 'L1 - tous') return 'Étudiants Licence 1';
+    if (name === 'L2 - tous') return 'Étudiants Licence 2';
+    if (name === 'L3 - tous') return 'Étudiants Licence 3';
+  } else if (groupType === 'pole') {
+    if (name === 'polytechnique') return 'Pôle Polytechnique';
+    if (name === 'commerce') return 'Pôle Commerce';
+    if (name === 'droit') return 'Pôle Droit';
+  } else if (groupType === 'filiere') {
+    if (name === 'gi') return 'Génie Informatique';
+    if (name === 'gm') return 'Génie Mécanique';
+    if (name === 'ge') return 'Génie Électrique';
+    if (name === 'gc') return 'Génie Civil';
+    if (name === 'gs') return 'Géosciences';
+  } else if (groupType === 'option') {
+    if (name === 'gl') return 'Génie Logiciel';
+    if (name === 'rt') return 'Réseaux et Télécommunications';
+    if (name === 'di') return 'Développement Informatique';
+    if (name === 'ia') return 'Intelligence Artificielle';
+    if (name === 'mi') return 'Maintenance Industrielle';
+    if (name === 'em') return 'Électromécanique';
+    if (name === 'm') return 'Mécatronique';
+    if (name === 'et') return 'Électrotechnique';
+    if (name === 'aii') return 'Automatisme et Informatique Industrielle';
+    if (name === 'ai') return 'Automatisme et Instrumentation';
+    if (name === 'gp/gc') return 'Génie des Procédés / Génie Chimique';
+    if (name === 'gpa') return 'Génie des Procédés Alimentaire';
+    if (name === 'qhse') return 'Qualité, Hygiène, Sécurité & Environnement';
+    if (name === 'rp') return 'Raffinage & Pétrochimie';
+    if (name === 'btp') return 'Bâtiment & Travaux Publics';
+    if (name === 'au') return 'Architecture & Urbanisation';
+    if (name === 'gt') return 'Géomètre et Topographe';
+    if (name === 'mc') return 'Mines & Carrières';
+    if (name === 'gp') return 'Génie Pétrolier';
+    if (name === 'gghs') return 'Génie Géologique des Hydrosystèmes';
+    if (name === 'ge') return 'Géophysique';
+    if (name === 'gga') return 'Géotechnique & Géologie Appliquée';
+    if (name === 'ge_env') return 'Gestion de l\'Environnement';
+    if (name === 'mco') return 'Management Commercial Opérationnel';
+    if (name === 'cge') return 'Comptabilité & Gestion d\'Entreprise';
+    if (name === 'tci') return 'Transit & Commerce International';
+    if (name === 'grh') return 'Gestion Des Ressources Humaines';
+    if (name === 'bf') return 'Banque, Finance & Assurances';
+    if (name === 'btm') return 'Business, Trade & Marketing';
+    if (name === 'mdc') return 'Marketing Digital & Communication';
+    if (name === 'cf') return 'Comptabilité & Finances';
+    if (name === 'TL') return 'Transport & Logistique';
+    if (name === 'ep') return 'Économie Pétrolière';
+    if (name === 'am') return 'Assistant De Manager';
+    if (name === 'dri') return 'Diplomatie & Relations Internationales';
+    if (name === 'sp') return 'Sciences Politiques';
+    if (name === 'da') return 'Droit Des Affaires';
+    if (name === 'dp') return 'Droit Public';
+    if (name === 'Dv') return 'Droit Privé';
+  }
+  return name;
+};
+
 export default function GroupsScreen() {
   const { session } = useAuth();
   const router = useRouter();
@@ -72,7 +131,7 @@ export default function GroupsScreen() {
         <Feather name={getGroupIcon(item.group_type) as any} size={24} color={themeColors.primary} />
       </View>
       <View style={styles.cardContent}>
-        <ThemedText type="defaultSemiBold" style={styles.cardTitle}>{item.name}</ThemedText>
+        <ThemedText type="defaultSemiBold" style={styles.cardTitle}>{formatGroupName(item.name, item.group_type)}</ThemedText>
         <ThemedText style={styles.cardDescription}>{item.description || 'Appuyez pour voir les messages'}</ThemedText>
       </View>
       <Feather name="chevron-right" size={20} color={themeColors.icon} />

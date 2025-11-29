@@ -147,7 +147,7 @@ export default function Register() {
 
             <View style={styles.pickerContainer}>
               <Picker selectedValue={pole} onValueChange={handlePoleChange} style={styles.picker} dropdownIconColor={styles.picker.color}>
-                <Picker.Item label="Pôle" value="" />
+                
                 <Picker.Item label="Polytechnique" value="polytechnique" />
                 <Picker.Item label="Commerce" value="commerce" />
                 <Picker.Item label="Droit" value="droit" />    
@@ -218,7 +218,7 @@ export default function Register() {
 
             <View style={styles.pickerContainer}>
               <Picker selectedValue={level} onValueChange={(itemValue) => setLevel(itemValue)} style={styles.picker} dropdownIconColor={styles.picker.color}>
-                <Picker.Item label="Niveau" value="" />
+                
                 <Picker.Item label="Licence 1" value="L1" />
                 <Picker.Item label="Licence 2" value="L2" />
                 <Picker.Item label="Licence 3" value="L3" />

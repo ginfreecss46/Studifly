@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "552318313869",
+    "project_id": "study-university-64a32",
+    "storage_bucket": "study-university-64a32.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552318313869:android:490fc8f7cc164a84b3c9c4",
+        "android_client_info": {
+          "package_name": "com.teamsasaki.studyuniversity"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnw1uY5mJ1SzMW3UEgKzfdFn4NF4Ewh5A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
