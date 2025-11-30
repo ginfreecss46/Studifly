@@ -31,9 +31,10 @@ const getGroupIcon = (groupType: string) => {
 
 const formatGroupName = (name: string, groupType: string): string => {
   if (groupType === 'level') {
-    if (name === 'L1 - tous') return 'Étudiants Licence 1';
-    if (name === 'L2 - tous') return 'Étudiants Licence 2';
-    if (name === 'L3 - tous') return 'Étudiants Licence 3';
+    const nameLower = name.toLowerCase();
+    if (nameLower === 'l1 - tous') return 'Étudiants Licence 1';
+    if (nameLower === 'l2 - tous') return 'Étudiants Licence 2';
+    if (nameLower === 'l3 - tous') return 'Étudiants Licence 3';
   } else if (groupType === 'pole') {
     if (name === 'polytechnique') return 'Pôle Polytechnique';
     if (name === 'commerce') return 'Pôle Commerce';

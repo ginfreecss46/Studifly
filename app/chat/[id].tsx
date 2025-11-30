@@ -118,9 +118,38 @@ export default function ChatScreen() {
     if (!newMessage.trim() || !session || !groupId) return;
 
     const content = newMessage.trim();
+    
+    // 1. Create an optimistic message
+    const optimisticMessage: Message = {
+      id: Math.random(), // Temporary unique ID
+      content: content,
+      created_at: new Date().toISOString(),
+      user_id: session.user.id,
+      message_type: 'text',
+      profiles: {
+        full_name: session.user.user_metadata.full_name,
+        avatar_url: session.user.user_metadata.avatar_url,
+      },
+    };
+
+    // 2. Add to local state immediately
+    setMessages(currentMessages => [optimisticMessage, ...currentMessages]);
     setNewMessage('');
 
-    await supabase.from('chat_messages').insert({ group_id: groupId, user_id: session.user.id, content: content, message_type: 'text' });
+    // 3. Send to Supabase in the background
+    const { error } = await supabase.from('chat_messages').insert({ 
+      group_id: groupId, 
+      user_id: session.user.id, 
+      content: content, 
+      message_type: 'text' 
+    });
+
+    // 4. If sending fails, remove the optimistic message and show an error
+    if (error) {
+      setMessages(currentMessages => currentMessages.filter(m => m.id !== optimisticMessage.id));
+      showToast("Erreur d'envoi", 'error');
+      console.error(error);
+    }
   };
 
   const handleDeleteMessage = async (messageId: number) => {

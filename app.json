@@ -49,9 +49,9 @@
     "extra": {
       "router": {},
       "eas": {
-
+        "projectId": "abc4f421-2db5-40e0-828b-947af65405b7"
       }
     },
-    "owner": "sasaki_242"
+    "owner": "gon-freecss"
   }
 }
