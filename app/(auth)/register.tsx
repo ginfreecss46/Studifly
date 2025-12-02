@@ -16,7 +16,7 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [fullName, setFullName] = useState('');
   const [level, setLevel] = useState('');
-  const [university, setUniversity] = useState('');
+  const [university, setUniversity] = useState('2I');
   const [academicYear, setAcademicYear] = useState('');
   const [pole, setPole] = useState('');
   const [filiere, setFiliere] = useState('');
@@ -106,7 +106,7 @@ export default function Register() {
             </View>
 
             <View style={styles.pickerContainer}>
-              <Picker selectedValue={university} onValueChange={(itemValue) => setUniversity(itemValue)} style={styles.picker} dropdownIconColor={styles.picker.color}>
+              <Picker selectedValue={university} onValueChange={(itemValue) => setUniversity(itemValue)} style={styles.picker} dropdownIconColor={styles.picker.color} enabled={false}>
                 <Picker.Item label="Université" value="" />
                 <Picker.Item label="Université Marien Ngouabi (UMNG)" value="umng" />
                 <Picker.Item label="École Supérieure d'Administration des Affaires (ESAA)" value="esaa" />

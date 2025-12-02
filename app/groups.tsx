@@ -3,7 +3,7 @@ import { useAuth } from "@/context/AuthContext";
 import { supabase } from "@/lib/supabase";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useState, useCallback } from "react";
-import { FlatList, StyleSheet, ActivityIndicator, View, Pressable, useColorScheme } from "react-native";
+import { FlatList, StyleSheet, ActivityIndicator, View, Pressable, useColorScheme, Alert } from "react-native";
 import { Colors, Spacing, FontSizes } from "@/constants/theme";
 import { Feather } from '@expo/vector-icons';
 

@@ -3,7 +3,7 @@ import { useAuth } from '@/context/AuthContext';
 import { supabase } from '@/lib/supabase';
 import { useLocalSearchParams, useRouter, useNavigation } from 'expo-router';
 import { useState, useEffect, useCallback } from 'react';
-import { View, TextInput, StyleSheet, Alert, FlatList, ActivityIndicator, useColorScheme as useRNColorScheme, Pressable, Linking } from 'react-native';
+import { View, TextInput, StyleSheet, Alert, FlatList, ActivityIndicator, useColorScheme as useRNColorScheme, Pressable, Linking, KeyboardAvoidingView, Platform } from 'react-native';
 import { Colors, Spacing, FontSizes } from '@/constants/theme';
 import { Button } from '@/components/ui/Button';
 import { Feather } from '@expo/vector-icons';
@@ -210,7 +210,7 @@ export default function PostDetailScreen() {
     ]);
   };
 
-  const renderReply = ({ item }: { item: Reply }) => (
+  const renderReply = useCallback(({ item }: { item: Reply }) => (
     <View style={styles.replyContainer}>
       <ThemedText style={{ color: themeColors.text }}>{item.content}</ThemedText>
       <ThemedText style={styles.metaText}>
@@ -228,7 +228,21 @@ export default function PostDetailScreen() {
         )}
       </View>
     </View>
-  );
+  ), [styles, themeColors, session, userIsAdmin, handleLike, handleDeleteReply]);
+
+  const renderFooter = useCallback(() => (
+    <View style={styles.replyInputContainer}>
+      <TextInput
+        placeholder="Votre réponse..."
+        value={newReply}
+        onChangeText={setNewReply}
+        style={styles.input}
+        multiline
+        placeholderTextColor={themeColors.textSecondary}
+      />
+      <Button title="Répondre" onPress={handleAddReply} disabled={!newReply.trim()} />
+    </View>
+  ), [styles, newReply, themeColors, handleAddReply]);
 
   if (loading) {
     return <ActivityIndicator size="large" style={{ flex: 1 }} color={themeColors.primary} />;
@@ -239,59 +253,53 @@ export default function PostDetailScreen() {
   }
 
   return (
-    <FlatList
-      style={styles.container}
-      ListHeaderComponent={() => (
-        <View style={styles.card}>
-          <View style={styles.postHeader}>
-            <ThemedText type="title" style={styles.postTitle}>{post.title}</ThemedText>
-            {session?.user.id === post.user_id && (
-              <Button title="Modifier" onPress={() => { console.log('Editing post with ID:', post.id); router.push(`/edit-post/${post.id}`); }} variant="secondary" />
+    <KeyboardAvoidingView 
+      style={{ flex: 1 }} 
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
+      keyboardVerticalOffset={100}
+    >
+      <FlatList
+        style={styles.container}
+        ListHeaderComponent={() => (
+          <View style={styles.card}>
+            <View style={styles.postHeader}>
+              <ThemedText type="title" style={styles.postTitle}>{post.title}</ThemedText>
+              {session?.user.id === post.user_id && (
+                <Button title="Modifier" onPress={() => { console.log('Editing post with ID:', post.id); router.push(`/edit-post/${post.id}`); }} variant="secondary" />
+              )}
+              {userIsAdmin && (
+                <Button title="Supprimer" onPress={() => { console.log('Deleting post with ID:', post.id); handleDeletePost(); }} variant="secondary" style={{backgroundColor: themeColors.destructive}} />
+              )}
+            </View>
+            <ThemedText style={styles.metaText}>
+              Par {post.profiles?.full_name || 'Anonyme'} le {new Date(post.created_at).toLocaleDateString('fr-FR')}
+            </ThemedText>
+            <ThemedText style={styles.postContent}>{post.content}</ThemedText>
+            {post.documents && post.documents.length > 0 && (
+              <View style={styles.documentContainer}>
+                <ThemedText style={styles.documentTitle}>Pièce jointe :</ThemedText>
+                <Pressable onPress={() => Linking.openURL(post.documents[0].file_url)}>
+                  <ThemedText style={styles.documentLink}>{post.documents[0].title}</ThemedText>
+                </Pressable>
+              </View>
             )}
-            {userIsAdmin && (
-              <Button title="Supprimer" onPress={() => { console.log('Deleting post with ID:', post.id); handleDeletePost(); }} variant="secondary" style={{backgroundColor: themeColors.destructive}} />
-            )}
-          </View>
-          <ThemedText style={styles.metaText}>
-            Par {post.profiles?.full_name || 'Anonyme'} le {new Date(post.created_at).toLocaleDateString('fr-FR')}
-          </ThemedText>
-          <ThemedText style={styles.postContent}>{post.content}</ThemedText>
-          {post.documents && post.documents.length > 0 && (
-            <View style={styles.documentContainer}>
-              <ThemedText style={styles.documentTitle}>Pièce jointe :</ThemedText>
-              <Pressable onPress={() => Linking.openURL(post.documents[0].file_url)}>
-                <ThemedText style={styles.documentLink}>{post.documents[0].title}</ThemedText>
+            <View style={styles.likeContainer}>
+              <Pressable onPress={() => handleLike(post.id, 'post')} style={({ pressed }) => [styles.likeButton, pressed && styles.buttonPressed]}>
+                <Feather name="heart" size={20} color={post.post_reactions?.some(r => r.user_id === session?.user.id) ? themeColors.primary : themeColors.textSecondary} />
+                <ThemedText style={styles.likeCount}>{post.likes_count || 0}</ThemedText>
               </Pressable>
             </View>
-          )}
-          <View style={styles.likeContainer}>
-            <Pressable onPress={() => handleLike(post.id, 'post')} style={({ pressed }) => [styles.likeButton, pressed && styles.buttonPressed]}>
-              <Feather name="heart" size={20} color={post.post_reactions?.some(r => r.user_id === session?.user.id) ? themeColors.primary : themeColors.textSecondary} />
-              <ThemedText style={styles.likeCount}>{post.likes_count || 0}</ThemedText>
-            </Pressable>
+            <ThemedText type="subtitle" style={styles.repliesHeader}>Réponses</ThemedText>
           </View>
-          <ThemedText type="subtitle" style={styles.repliesHeader}>Réponses</ThemedText>
-        </View>
-      )}
-      data={replies}
-      renderItem={renderReply}
-      keyExtractor={(item) => item.id}
-      contentContainerStyle={{ paddingBottom: 100, paddingHorizontal: Spacing.lg }}
-      ListFooterComponent={() => (
-        <View style={styles.replyInputContainer}>
-          <TextInput
-            placeholder="Votre réponse..."
-            value={newReply}
-            onChangeText={setNewReply}
-            style={styles.input}
-            multiline
-            placeholderTextColor={themeColors.textSecondary}
-          />
-          <Button title="Répondre" onPress={handleAddReply} disabled={!newReply.trim()} />
-        </View>
-      )}
-      ListEmptyComponent={() => <ThemedText style={styles.emptyText}>Aucune réponse pour le moment.</ThemedText>}
-    />
+        )}
+        data={replies}
+        renderItem={renderReply}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={{ paddingBottom: 100, paddingHorizontal: Spacing.lg }}
+        ListFooterComponent={renderFooter}
+        ListEmptyComponent={() => <ThemedText style={styles.emptyText}>Aucune réponse pour le moment.</ThemedText>}
+      />
+    </KeyboardAvoidingView>
   );
 }
 

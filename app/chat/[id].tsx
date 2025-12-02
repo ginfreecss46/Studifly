@@ -17,6 +17,67 @@ type Message = {
   profiles: { full_name: string, avatar_url?: string } | null;
 };
 
+const formatGroupName = (name: string, groupType: string): string => {
+  if (groupType === 'level') {
+    const nameLower = name.toLowerCase();
+    if (nameLower === 'l1 - tous') return 'Étudiants Licence 1';
+    if (nameLower === 'l2 - tous') return 'Étudiants Licence 2';
+    if (nameLower === 'l3 - tous') return 'Étudiants Licence 3';
+  } else if (groupType === 'pole') {
+    if (name === 'polytechnique') return 'Pôle Polytechnique';
+    if (name === 'commerce') return 'Pôle Commerce';
+    if (name === 'droit') return 'Pôle Droit';
+  } else if (groupType === 'filiere') {
+    if (name === 'gi') return 'Génie Informatique';
+    if (name === 'gm') return 'Génie Mécanique';
+    if (name === 'ge') return 'Génie Électrique';
+    if (name === 'gc') return 'Génie Civil';
+    if (name === 'gs') return 'Géosciences';
+  } else if (groupType === 'option') {
+    if (name === 'gl') return 'Génie Logiciel';
+    if (name === 'rt') return 'Réseaux et Télécommunications';
+    if (name === 'di') return 'Développement Informatique';
+    if (name === 'ia') return 'Intelligence Artificielle';
+    if (name === 'mi') return 'Maintenance Industrielle';
+    if (name === 'em') return 'Électromécanique';
+    if (name === 'm') return 'Mécatronique';
+    if (name === 'et') return 'Électrotechnique';
+    if (name === 'aii') return 'Automatisme et Informatique Industrielle';
+    if (name === 'ai') return 'Automatisme et Instrumentation';
+    if (name === 'gp/gc') return 'Génie des Procédés / Génie Chimique';
+    if (name === 'gpa') return 'Génie des Procédés Alimentaire';
+    if (name === 'qhse') return 'Qualité, Hygiène, Sécurité & Environnement';
+    if (name === 'rp') return 'Raffinage & Pétrochimie';
+    if (name === 'btp') return 'Bâtiment & Travaux Publics';
+    if (name === 'au') return 'Architecture & Urbanisation';
+    if (name === 'gt') return 'Géomètre et Topographe';
+    if (name === 'mc') return 'Mines & Carrières';
+    if (name === 'gp') return 'Génie Pétrolier';
+    if (name === 'gghs') return 'Génie Géologique des Hydrosystèmes';
+    if (name === 'ge') return 'Géophysique';
+    if (name === 'gga') return 'Géotechnique & Géologie Appliquée';
+    if (name === 'ge_env') return 'Gestion de l\'Environnement';
+    if (name === 'mco') return 'Management Commercial Opérationnel';
+    if (name === 'cge') return 'Comptabilité & Gestion d\'Entreprise';
+    if (name === 'tci') return 'Transit & Commerce International';
+    if (name === 'grh') return 'Gestion Des Ressources Humaines';
+    if (name === 'bf') return 'Banque, Finance & Assurances';
+    if (name === 'btm') return 'Business, Trade & Marketing';
+    if (name === 'mdc') return 'Marketing Digital & Communication';
+    if (name === 'cf') return 'Comptabilité & Finances';
+    if (name === 'TL') return 'Transport & Logistique';
+    if (name === 'ep') return 'Économie Pétrolière';
+    if (name === 'am') return 'Assistant De Manager';
+    if (name === 'dri') return 'Diplomatie & Relations Internationales';
+    if (name === 'sp') return 'Sciences Politiques';
+    if (name === 'da') return 'Droit Des Affaires';
+    if (name === 'dp') return 'Droit Public';
+    if (name === 'Dv') return 'Droit Privé';
+  }
+  return name;
+};
+
+
 export default function ChatScreen() {
   const { id: groupId } = useLocalSearchParams<{ id: string }>();
   const { session } = useAuth();
@@ -30,23 +91,38 @@ export default function ChatScreen() {
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(true);
   const [groupName, setGroupName] = useState('Groupe');
+  const [currentUserProfile, setCurrentUserProfile] = useState<{ full_name: string, avatar_url?: string } | null>(null);
 
   useEffect(() => {
     const fetchGroupInfo = async () => {
       if (!groupId) return;
       const { data } = await supabase
         .from('chat_groups')
-        .select('name')
+        .select('name, group_type')
         .eq('id', groupId)
         .single();
 
       if (data) {
-        setGroupName(data.name);
-        navigation.setOptions({ title: data.name });
+        const fullName = formatGroupName(data.name, data.group_type);
+        setGroupName(fullName);
+        navigation.setOptions({ title: fullName });
       }
     };
     fetchGroupInfo();
-  }, [groupId, navigation]);
+
+    const fetchCurrentUserProfile = async () => {
+      if (!session) return;
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('full_name, avatar_url')
+        .eq('id', session.user.id)
+        .single();
+
+      if (error) console.error('Error fetching current user profile:', error);
+      else setCurrentUserProfile(data);
+    };
+    fetchCurrentUserProfile();
+  }, [groupId, navigation, session]);
 
   useEffect(() => {
     const checkFirstTime = async () => {
@@ -115,7 +191,7 @@ export default function ChatScreen() {
   }, [groupId, fetchMessages]);
 
   const handleSendMessage = async () => {
-    if (!newMessage.trim() || !session || !groupId) return;
+    if (!newMessage.trim() || !session || !groupId || !currentUserProfile) return;
 
     const content = newMessage.trim();
     
@@ -127,8 +203,8 @@ export default function ChatScreen() {
       user_id: session.user.id,
       message_type: 'text',
       profiles: {
-        full_name: session.user.user_metadata.full_name,
-        avatar_url: session.user.user_metadata.avatar_url,
+        full_name: currentUserProfile.full_name || 'Anonyme',
+        avatar_url: currentUserProfile.avatar_url,
       },
     };
 
