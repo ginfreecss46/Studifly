@@ -18,9 +18,6 @@
       "autoIncrement": true,
       "android": {
         "buildType": "app-bundle"
-      },
-      "web": {
-        "image": "ubuntu-22.04-latest"
       }
     }
   },
