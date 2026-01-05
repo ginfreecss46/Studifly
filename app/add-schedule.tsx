@@ -138,7 +138,7 @@ export default function AddScheduleScreen() {
           />
         )}
 
-        <ThemedText style={styles.label}>Lieu (optionnel)</ThemedText>
+        <ThemedText style={styles.label}>Lieu</ThemedText>
         <TextInput
           placeholder="Ex: Salle B203"
           value={location}

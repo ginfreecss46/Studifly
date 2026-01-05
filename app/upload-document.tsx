@@ -102,7 +102,7 @@ export default function UploadDocumentScreen() {
           placeholderTextColor={themeColors.textSecondary}
         />
 
-        <ThemedText style={styles.label}>Matière (optionnel)</ThemedText>
+        <ThemedText style={styles.label}>Matière</ThemedText>
         <View style={styles.pickerContainer}>
           <Picker
             selectedValue={selectedCourse}

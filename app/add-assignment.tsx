@@ -123,7 +123,7 @@ export default function AddAssignmentScreen() {
 
         <ThemedText style={styles.label}>Description</ThemedText>
         <TextInput
-          placeholder="(Optionnel)"
+          placeholder=""
           value={description}
           onChangeText={setDescription}
           style={[styles.input, styles.textArea]}

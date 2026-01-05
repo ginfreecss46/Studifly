@@ -95,7 +95,7 @@ export default function Register() {
                 <Feather name={showPassword ? 'eye-off' : 'eye'} size={20} color={styles.input.placeholderTextColor} />
               </Pressable>
             </View>
-            <TextInput placeholder="Numéro de téléphone" value={phoneNumber} onChangeText={setPhoneNumber} keyboardType="phone-pad" style={styles.input} placeholderTextColor={styles.input.placeholderTextColor} />
+            <TextInput placeholder="Numéro de téléphone *" value={phoneNumber} onChangeText={setPhoneNumber} keyboardType="phone-pad" style={styles.input} placeholderTextColor={styles.input.placeholderTextColor} />
             
             <View style={styles.pickerContainer}>
               <Picker selectedValue={gender} onValueChange={(itemValue) => setGender(itemValue)} style={styles.picker} dropdownIconColor={styles.picker.color}>

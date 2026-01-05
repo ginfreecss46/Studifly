@@ -149,7 +149,7 @@ export default function AddPostScreen() {
           placeholderTextColor={themeColors.textSecondary}
         />
 
-        <ThemedText style={styles.label}>Matière (optionnel)</ThemedText>
+        <ThemedText style={styles.label}>Matière</ThemedText>
         <View style={styles.pickerContainer}>
           <Picker
             selectedValue={selectedCourse}
@@ -162,7 +162,7 @@ export default function AddPostScreen() {
           </Picker>
         </View>
 
-        <ThemedText style={styles.label}>Pièce jointe (optionnel)</ThemedText>
+        <ThemedText style={styles.label}>Pièce jointe</ThemedText>
         <Button title="Choisir un document" onPress={pickDocument} variant="secondary" />
         {document && !document.canceled && (
           <ThemedText style={styles.documentName}>{document.assets[0].name}</ThemedText>

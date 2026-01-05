@@ -94,7 +94,7 @@ export default function EditPostScreen() {
         <ThemedText style={styles.label}>Contenu</ThemedText>
         <TextInput value={content} onChangeText={setContent} style={[styles.input, styles.textArea]} multiline placeholderTextColor={themeColors.textSecondary} />
 
-        <ThemedText style={styles.label}>Matière (optionnel)</ThemedText>
+        <ThemedText style={styles.label}>Matière</ThemedText>
         <View style={styles.pickerContainer}>
           <Picker selectedValue={selectedCourse} onValueChange={(itemValue) => setSelectedCourse(itemValue)} dropdownIconColor={themeColors.icon} style={{ color: themeColors.text }}>
             <Picker.Item label="Aucune matière spécifique" value={undefined} />
