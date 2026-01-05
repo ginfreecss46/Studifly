@@ -44,7 +44,7 @@ export default function Login() {
             <Feather name="book-open" size={60} color={Colors[colorScheme].primary} />
           </View>
 
-          <ThemedText type="title" style={styles.header}>Study University</ThemedText>
+          <ThemedText type="title" style={styles.header}>Studifly</ThemedText>
           <ThemedText style={styles.subtitle}>Ravi de vous revoir !</ThemedText>
 
           <View style={styles.card}>

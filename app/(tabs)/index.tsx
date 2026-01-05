@@ -140,7 +140,7 @@ export default function HomeScreen() {
     if (isNewUser) {
       return (
         <ThemedText style={styles.headerGreeting}>
-          Bienvenue dans Study University ! Moi, KANG JINHUYK, vous remercie pour l&apos;installation. J&apos;espere que l&apos;application sera utilisee.
+          Bienvenue dans Studifly ! Moi, KANG JINHUYK, vous remercie pour l&apos;installation. J&apos;espere que l&apos;application sera utilisee.
         </ThemedText>
       );
     }

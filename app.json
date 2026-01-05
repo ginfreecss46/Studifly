@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Study University",
-    "slug": "study-university",
+    "name": "Studifly",
+    "slug": "studifly",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "studyuniversity",
+    "scheme": "studifly",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -21,7 +21,7 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.teamsasaki.studyuniversity"
+      "package": "com.teamsasaki.studifly"
     },
     "web": {
       "output": "static",
@@ -49,9 +49,13 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "abc4f421-2db5-40e0-828b-947af65405b7"
+        "projectId": "9a083398-a186-4066-aa22-f4940a48420b"
       }
     },
-    "owner": "gon-freecss"
+    "owner": "gon-freecss",
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/9a083398-a186-4066-aa22-f4940a48420b"
+    }
   }
 }
