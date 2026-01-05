@@ -35,7 +35,7 @@ export default function AddAssignmentScreen() {
         .eq('user_id', session.user.id);
 
       if (data) {
-        const userCourses = data.map(item => item.courses).filter((c): c is Course => c !== null && typeof c === 'object');
+        const userCourses = data.map(item => item.courses).flat().filter((c): c is Course => c !== null && typeof c === 'object');
         setCourses(userCourses);
         if (userCourses.length > 0) {
           setSelectedCourse(userCourses[0].id);
@@ -68,14 +68,17 @@ export default function AddAssignmentScreen() {
       if (error) throw error;
 
       if (newAssignment) {
-        const notificationId = await Notifications.scheduleNotificationAsync({
-          content: {
-            title: "Rappel de devoir",
-            body: `N'oubliez pas votre devoir: ${title} pour le ${dueDate.toLocaleDateString('fr-FR')}`,
-          },
-          trigger: dueDate,
-        });
-        console.log('Notification scheduled with ID:', notificationId);
+        const secondsUntilDue = (dueDate.getTime() - new Date().getTime()) / 1000;
+        if (secondsUntilDue > 0) {
+          const notificationId = await Notifications.scheduleNotificationAsync({
+            content: {
+              title: "Rappel de devoir",
+              body: `N'oubliez pas votre devoir: ${title} pour le ${dueDate.toLocaleDateString('fr-FR')}`,
+            },
+            trigger: { date: dueDate },
+          });
+          console.log('Notification scheduled with ID:', notificationId);
+        }
       }
 
       Alert.alert('Succès', 'Le devoir a été ajouté et une notification a été planifiée.');
