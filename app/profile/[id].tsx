@@ -2,6 +2,7 @@ import { ThemedText } from '@/components/themed-text';
 import { supabase } from '@/lib/supabase';
 import { Profile } from '@/types/database';
 import { useLocalSearchParams } from 'expo-router';
+import { getFullName } from '../../lib/data-mappers';
 import { useState, useEffect } from 'react';
 import { View, StyleSheet, ActivityIndicator, Image, useColorScheme, ScrollView } from 'react-native';
 import { Colors, Spacing, FontSizes } from '@/constants/theme';
@@ -54,9 +55,9 @@ export default function UserProfileScreen() {
         <ThemedText style={styles.cardTitle}>Informations</ThemedText>
         <View style={styles.infoGrid}>
           <InfoItem icon="award" label="Niveau" value={profile.level} />
-          <InfoItem icon="briefcase" label="Pôle" value={profile.pole} />
-          <InfoItem icon="book" label="Filière" value={profile.filiere} />
-          <InfoItem icon="tag" label="Option" value={profile.option} />
+          <InfoItem icon="briefcase" label="Pôle" value={getFullName('pole', profile.pole)} />
+          <InfoItem icon="book" label="Filière" value={getFullName('filiere', profile.filiere)} />
+          <InfoItem icon="tag" label="Option" value={getFullName('option', profile.option)} />
           <InfoItem icon="home" label="Université" value={profile.university} />
           <InfoItem icon="calendar" label="Année" value={profile.academic_year} />
         </View>

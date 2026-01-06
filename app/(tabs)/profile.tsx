@@ -3,6 +3,7 @@ import { useAuth } from '@/context/AuthContext';
 import { supabase } from '@/lib/supabase';
 import { Profile } from '@/types/database';
 import { useFocusEffect, useRouter } from 'expo-router';
+import { getFullName } from '../../lib/data-mappers';
 import { useState, useCallback, useMemo } from 'react';
 import { View, StyleSheet, ActivityIndicator, Alert, Switch, ScrollView, useColorScheme as useRNColorScheme, Image, Pressable } from 'react-native';
 import { Feather } from '@expo/vector-icons';
@@ -94,15 +95,15 @@ export default function ProfileScreen() {
             </View>
             <View style={styles.infoGridItem}>
               <Feather name="briefcase" size={18} color={themeColors.primary} style={styles.infoIcon} />
-              <ThemedText style={styles.infoText}>Pôle: {profile?.pole || 'N/A'}</ThemedText>
+              <ThemedText style={styles.infoText}>Pôle: {getFullName('pole', profile?.pole) || 'N/A'}</ThemedText>
             </View>
             <View style={styles.infoGridItem}>
               <Feather name="book" size={18} color={themeColors.primary} style={styles.infoIcon} />
-              <ThemedText style={styles.infoText}>Filière: {profile?.filiere || 'N/A'}</ThemedText>
+              <ThemedText style={styles.infoText}>Filière: {getFullName('filiere', profile?.filiere) || 'N/A'}</ThemedText>
             </View>
             <View style={styles.infoGridItem}>
               <Feather name="book-open" size={18} color={themeColors.primary} style={styles.infoIcon} />
-              <ThemedText style={styles.infoText}>Option: {profile?.option || 'N/A'}</ThemedText>
+              <ThemedText style={styles.infoText}>Option: {getFullName('option', profile?.option) || 'N/A'}</ThemedText>
             </View>
             <View style={styles.infoGridItem}>
               <Feather name="award" size={18} color={themeColors.primary} style={styles.infoIcon} />
