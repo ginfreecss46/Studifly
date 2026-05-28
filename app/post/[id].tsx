@@ -177,7 +177,7 @@ export default function PostDetailScreen() {
       if (existingLike) {
         await supabase.from('post_reactions').delete().eq('id', existingLike.id);
       } else {
-        await supabase.from('post_reactions').insert({ [targetType === 'post' ? 'post_id' : 'reply_id']: targetId, user_id: session.user.id, type: 'like' });
+        await supabase.from('post_reactions').insert({ [targetType === 'post' ? 'post_id' : 'reply_id']: targetId, user_id: session.user.id, reaction_type: 'like' });
       }
       fetchPostAndReplies();
     } catch (error: any) {

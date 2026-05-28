@@ -2,10 +2,10 @@
 
 <img src="placeholder-logo.png" width="120" alt="Studifly logo"/>
 
-# 🕊️ Studifly  
+# Studifly  
 ### _Le compagnon d’études intelligent et collaboratif_
 
-![Made with Love](https://img.shields.io/badge/Made%20with%20💙-for%20students-blue)
+![Made for students](https://img.shields.io/badge/Made%20for-students-blue)
 ![License MIT](https://img.shields.io/badge/License-MIT-green)
 ![Status](https://img.shields.io/badge/status-en%20développement-orange)
 ![Platform](https://img.shields.io/badge/platform-mobile-lightgrey)
@@ -15,7 +15,7 @@
 
 ---
 
-## ✨ Présentation
+## Présentation
 
 **Studifly** est une application mobile qui aide les étudiants à s’organiser, collaborer et réussir.  
 Tout ce dont vous avez besoin pour vos études — **agenda, tâches, documents, forums, et groupes** — réuni dans une interface moderne et intuitive.
@@ -26,26 +26,26 @@ Tout ce dont vous avez besoin pour vos études — **agenda, tâches, documents,
 
 ---
 
-## 🚀 Fonctionnalités principales
+## Fonctionnalités principales
 
-🎓 **Organisation intelligente**  
+**Organisation intelligente**  
 > Planifiez vos cours, vos examens et vos tâches sans effort grâce à un agenda fluide et interactif.
 
-💬 **Communauté étudiante**  
+**Communauté étudiante**  
 > Rejoignez des groupes par filière, échangez des conseils, collaborez sur vos projets.
 
-📚 **Partage de ressources**  
+**Partage de ressources**  
 > Téléversez vos cours, notes, fiches de révision, et accédez à une bibliothèque commune.
 
-🔔 **Notifications & rappels**  
+**Notifications & rappels**  
 > Recevez des alertes pour vos devoirs et événements à venir.
 
-🧠 **Mode focus & productivité**  
+**Mode focus & productivité**  
 > Concentrez-vous sur vos priorités grâce à des outils de planification intégrés.
 
 ---
 
-## 🛠️ Stack technique
+## Stack technique
 
 | Technologie | Utilisation |
 |--------------|-------------|
@@ -62,5 +62,5 @@ Tout ce dont vous avez besoin pour vos études — **agenda, tâches, documents,
 
 ---
 
-## 🧩 Structure du projet
+## Structure du projet
 

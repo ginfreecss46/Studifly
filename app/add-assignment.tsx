@@ -62,6 +62,7 @@ export default function AddAssignmentScreen() {
         title,
         description,
         course_id: selectedCourse,
+        user_id: session.user.id,
         due_date: dueDate.toISOString(),
       }).select().single();
 
