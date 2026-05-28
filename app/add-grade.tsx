@@ -56,13 +56,20 @@ export default function AddGradeScreen() {
 
     try {
       setLoading(true);
-      const { error } = await supabase.from('grades').insert({
+      const { data: newGrade, error } = await supabase.from('grades').insert({
         assignment_id: selectedAssignment,
         user_id: session.user.id,
         grade: numericGrade,
-      });
+      }).select().single();
 
       if (error) throw error;
+
+      if (newGrade) {
+        const { error: notificationError } = await supabase.functions.invoke('new-grade-notification', {
+          body: { record: newGrade },
+        });
+        if (notificationError) console.warn('Grade notification failed:', notificationError.message);
+      }
 
       Alert.alert('Succès', 'La note a été ajoutée.');
       router.back();

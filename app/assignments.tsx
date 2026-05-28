@@ -108,13 +108,36 @@ export default function AssignmentsScreen() {
           if (error) throw error;
         } else {
           // If the user is changing their vote, update the vote
-          const { error } = await supabase.from('assignment_votes').update({ vote }).eq('id', existingVote.id);
+          const { data: updatedVote, error } = await supabase
+            .from('assignment_votes')
+            .update({ vote })
+            .eq('id', existingVote.id)
+            .select()
+            .single();
           if (error) throw error;
+
+          if (updatedVote) {
+            const { error: notificationError } = await supabase.functions.invoke('assignment-vote-notification', {
+              body: { record: updatedVote },
+            });
+            if (notificationError) console.warn('Assignment vote notification failed:', notificationError.message);
+          }
         }
       } else {
         // If the user has not voted yet, insert a new vote
-        const { error } = await supabase.from('assignment_votes').insert({ assignment_id: assignmentId, user_id: session.user.id, vote });
+        const { data: newVote, error } = await supabase
+          .from('assignment_votes')
+          .insert({ assignment_id: assignmentId, user_id: session.user.id, vote })
+          .select()
+          .single();
         if (error) throw error;
+
+        if (newVote) {
+          const { error: notificationError } = await supabase.functions.invoke('assignment-vote-notification', {
+            body: { record: newVote },
+          });
+          if (notificationError) console.warn('Assignment vote notification failed:', notificationError.message);
+        }
       }
 
       fetchAssignments(); // Refresh assignments to show new vote count

@@ -1,7 +1,20 @@
+const fs = require('fs');
 const { createClient } = require('@supabase/supabase-js');
 
-const supabaseUrl = 'https://ahsqppwyfevrbajyfohz.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFoc3FwcHd5ZmV2cmJhanlmb2h6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgxODc4NTcsImV4cCI6MjA3Mzc2Mzg1N30.mXRAU34x3TzAUUzzB5wUNMYsPC3Npgzp1GKs4fB7AgM';
+const env = Object.fromEntries(
+  fs.readFileSync('.env', 'utf8')
+    .split(/\r?\n/)
+    .filter(Boolean)
+    .map((line) => line.split(/=(.*)/s).slice(0, 2))
+);
+
+const supabaseUrl = env.EXPO_PUBLIC_SUPABASE_URL;
+const supabaseKey = env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error('Missing EXPO_PUBLIC_SUPABASE_URL or EXPO_PUBLIC_SUPABASE_ANON_KEY');
+}
+
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function getUserId() {

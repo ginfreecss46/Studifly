@@ -140,8 +140,20 @@ export default function PostDetailScreen() {
     if (!newReply.trim()) return;
 
     try {
-      const { error } = await supabase.from('forum_post_replies').insert({ post_id: post.id, user_id: session.user.id, content: newReply });
+      const { data: reply, error } = await supabase
+        .from('forum_post_replies')
+        .insert({ post_id: post.id, user_id: session.user.id, content: newReply })
+        .select()
+        .single();
       if (error) throw error;
+
+      if (reply) {
+        const { error: notificationError } = await supabase.functions.invoke('new-forum-reply-notification', {
+          body: { record: reply },
+        });
+        if (notificationError) console.warn('Forum reply notification failed:', notificationError.message);
+      }
+
       setNewReply('');
       // The UI will update automatically via the realtime subscription
     } catch (error: any) {

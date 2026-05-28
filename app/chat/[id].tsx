@@ -213,12 +213,19 @@ export default function ChatScreen() {
     setNewMessage('');
 
     // 3. Send to Supabase in the background
-    const { error } = await supabase.from('chat_messages').insert({ 
+    const { data: message, error } = await supabase.from('chat_messages').insert({ 
       group_id: groupId, 
       user_id: session.user.id, 
       content: content, 
       message_type: 'text' 
-    });
+    }).select().single();
+
+    if (!error && message) {
+      const { error: notificationError } = await supabase.functions.invoke('new-chat-message-notification', {
+        body: { record: message },
+      });
+      if (notificationError) console.warn('Chat notification failed:', notificationError.message);
+    }
 
     // 4. If sending fails, remove the optimistic message and show an error
     if (error) {
